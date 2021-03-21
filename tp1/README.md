@@ -13,7 +13,7 @@ Par défaut, la commande génère un fichier `*.class` par classe Java dans le m
 Il est conseillé de générer les fichiers compilés (`*.class`) dans un autre répertoire (ex: `classes`) via l'option `-d` ou `--directory`.
 
 ```
-javac -d classes App.java
+javac -d classes src/App.java
 ```
 
 ### Excuter l'application `Hello World`
