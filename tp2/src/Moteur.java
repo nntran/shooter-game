@@ -1,17 +1,20 @@
 
 public class Moteur {
 
+    // Type de moteur (diesel, essence, electrique)
     String type = "";
-    short nbCv = 2;
+
+    // Puissance du moteur en chevaux (CV)
+    short puissance = 2;
 
     public Moteur() {
 
         this("electrique", (short) 90);
     }
 
-    public Moteur(String type, short nbCv) {
+    public Moteur(String type, short puissance) {
         this.type = type;
-        this.nbCv = nbCv;
+        this.puissance = puissance;
     }
 
     public String getType() {
@@ -27,16 +30,16 @@ public class Moteur {
         return this;
     }
 
-    public short getNbCv() {
-        return this.nbCv;
+    public short getPuissance() {
+        return this.puissance;
     }
 
-    public void setNbCV(short nbCv) {
-        this.nbCv = nbCv;
+    public void setPuissance(short puissance) {
+        this.puissance = puissance;
     }
 
-    public Moteur nbCV(short nbCv) {
-        setNbCV(nbCv);
+    public Moteur puissance(short puissance) {
+        setPuissance(puissance);
         return this;
     }
 
@@ -50,7 +53,7 @@ public class Moteur {
 
     @Override
     public String toString() {
-        return "Moteur {" + " type='" + getType() + "'" + ", nbCv='" + getNbCv() + "'" + "}";
+        return "Moteur {" + " type='" + getType() + "'" + ", puissance='" + getPuissance() + " CV'" + "}";
     }
 
 }
