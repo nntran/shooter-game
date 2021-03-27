@@ -1,5 +1,6 @@
 package fr.ntdt.game.shooter.objet.arme.impl;
 
+import fr.ntdt.game.shooter.objet.ObjetAnime;
 import fr.ntdt.game.shooter.objet.arme.Arme;
 
 /**
@@ -20,6 +21,12 @@ public class Laser extends Arme {
     public void tirer() {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public void touche(ObjetAnime objet) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

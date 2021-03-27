@@ -7,13 +7,8 @@ package fr.ntdt.game.shooter.objet.avion.impl;
 public class BombardierSpirit extends Bombardier {
 
     public BombardierSpirit() {
-        super("Northrop B-2 Spirit", 0.3f);
+        super("Northrop B-2 Spirit");
+
+        setResistance(0.3f);
     }
-
-    @Override
-    public void tirer() {
-        // TODO Auto-generated method stub
-
-    }
-
 }

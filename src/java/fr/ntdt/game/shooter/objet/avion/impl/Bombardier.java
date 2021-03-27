@@ -7,10 +7,10 @@ import fr.ntdt.game.shooter.objet.avion.Avion;
  * bombardiers sont équipés de bombes (atomiques ou non) ou/et de missiles de
  * croisière air/sol
  */
-public abstract class Bombardier extends Avion {
+public class Bombardier extends Avion {
 
-    protected Bombardier(String nom, float vitesse) {
-        super(nom, vitesse);
+    protected Bombardier(String nom) {
+        super(nom, null);
     }
 
 }

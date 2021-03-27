@@ -1,7 +1,5 @@
 package fr.ntdt.game.shooter.objet.arme;
 
-import java.util.Objects;
-
 import fr.ntdt.game.shooter.objet.ObjetAnime;
 
 /**
@@ -9,7 +7,7 @@ import fr.ntdt.game.shooter.objet.ObjetAnime;
  */
 public abstract class Arme extends ObjetAnime {
 
-    // Facteur de dégat de l'arme (0.01) à l'impact
+    // Facteur de dégat de l'arme (0.01 à 0.5) à l'impact
     private float degat = (float) 0.01;
 
     // Type de portée
@@ -23,7 +21,7 @@ public abstract class Arme extends ObjetAnime {
      * @param nom
      */
     protected Arme(String nom) {
-        super(nom, "");
+        super(nom, null);
     }
 
     public float getDegat() {

@@ -6,7 +6,7 @@ package fr.ntdt.game.shooter.objet.avion;
 public interface AvionFactory {
 
     /**
-     * Créer un avion en lui attribuant un matricule (numéro de série)
+     * Créer un avion en lui attribuant un nom (numéro de série)
      * 
      * @param nom
      * @return

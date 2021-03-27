@@ -14,13 +14,7 @@ public class AvionChasse extends Avion {
      * @param nom
      */
     public AvionChasse(String nom) {
-        super(nom, 0.6f);
-    }
-
-    @Override
-    public void tirer() {
-        // TODO Auto-generated method stub
-
+        super(nom, null);
     }
 
 }

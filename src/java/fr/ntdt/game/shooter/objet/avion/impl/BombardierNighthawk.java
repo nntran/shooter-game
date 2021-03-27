@@ -6,13 +6,9 @@ package fr.ntdt.game.shooter.objet.avion.impl;
 public class BombardierNighthawk extends Bombardier {
 
     public BombardierNighthawk() {
-        super("Lockheed F-117 Nighthawk", 0.4f);
-    }
+        super("Lockheed F-117 Nighthawk");
 
-    @Override
-    public void tirer() {
-        // TODO Auto-generated method stub
-
+        setResistance(0.4f);
     }
 
 }

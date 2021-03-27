@@ -1,5 +1,7 @@
 package fr.ntdt.game.shooter.objet.avion;
 
+import javax.lang.model.util.ElementScanner6;
+
 import fr.ntdt.game.shooter.objet.ObjetAnime;
 import fr.ntdt.game.shooter.objet.arme.Arme;
 
@@ -8,8 +10,8 @@ import fr.ntdt.game.shooter.objet.arme.Arme;
  */
 public abstract class Avion extends ObjetAnime {
 
-    // Vitesse de vol (0 à 1)
-    private float vitesse = 0.1f;
+    // Vitesse de vol (1 à 10)
+    private int vitesse = 1;
 
     /**
      * Santé maximale
@@ -19,8 +21,8 @@ public abstract class Avion extends ObjetAnime {
     // Santé courante
     private float sante = SANTE_MAX;
 
-    // Resistence
-    private float resistance = 0.5f;
+    // Resistence (pourcentage)
+    private float resistance = 0.01f;
 
     // Armes principale et secondaire
     private Arme principale, secondaire;
@@ -32,22 +34,26 @@ public abstract class Avion extends ObjetAnime {
      * Constructeur pour créer un avion
      * 
      * @param nom
-     * @param vitesse
+     * @param image
      */
-    protected Avion(String nom, float vitesse) {
-        super(nom, "src/ressources/avion-60p.png");
-        this.vitesse = vitesse;
+    public Avion(String nom, String image) {
+        super(nom, image != null ? image : "src/ressources/avion-60p.png");
     }
 
-    public float getVitesse() {
+    public int getVitesse() {
         return this.vitesse;
     }
 
-    public void setVitesse(float vitesse) {
-        this.vitesse = vitesse;
+    public void setVitesse(int vitesse) {
+        if (vitesse < 1)
+            this.vitesse = 1;
+        else if (vitesse > 10)
+            this.vitesse = 10;
+        else
+            this.vitesse = vitesse;
     }
 
-    public Avion vitesse(float vitesse) {
+    public Avion vitesse(int vitesse) {
         setVitesse(vitesse);
         return this;
     }
@@ -88,18 +94,35 @@ public abstract class Avion extends ObjetAnime {
         return this;
     }
 
-    /**
-     * Action voler
-     */
-    public abstract void tirer();
+    @Override
+    public void deplacer(int dx, int dy) {
 
-    /**
-     * Touché par une arme d'un ennemi
-     * 
-     * @param ennemi
-     * @param arme
-     */
-    public void touche(Avion ennemi, Arme arme) {
+        // Prendre en compte la vitesse de l'avion
+        if (dx > 0)
+            dx = dx * vitesse;
+        if (dy > 0)
+            dy = dy * vitesse;
 
+        super.deplacer(dx, dy);
+    }
+
+    @Override
+    public void touche(ObjetAnime objet) {
+        // implémenter un effet d'impact / collision en fonction de l'objet touché
+        // (arme, avion, ...)
+
+        if (objet instanceof Arme) {
+            Arme arme = (Arme) objet;
+            float degat = arme.getDegat();
+            degat -= (degat * resistance);
+
+            sante -= degat;
+
+        } else {
+            sante -= 0.01;
+        }
+
+        if (sante < 0)
+            sante = 0;
     }
 }

@@ -25,21 +25,20 @@ import javax.swing.Timer;
 
 public class Scene extends Panel implements Runnable, ActionListener {
 
-    private final int LARGEUR = 640;
-    private final int HAUTEUR = 480;
-
-    private final int DELAI_RAFRESH = 30;
+    private final int WIDTH = 640;
+    private final int HEIGHT = 480;
+    private final int DELAY = 25;
 
     // Avion a1 = new BombardierNighthawk();
-    private Avion avion = new RafaleF3R();
+    Avion avion = new RafaleF3R();
 
     private Thread animator;
 
     public Scene() {
 
-        setPreferredSize(new Dimension(LARGEUR, HAUTEUR));
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-        avion.setPos(new Point(LARGEUR / 2, HAUTEUR - 60));
+        avion.setPos(new Point(WIDTH / 2, HEIGHT - 60));
 
         addKeyListener(new KeyboardAdapter());
     }
@@ -103,7 +102,7 @@ public class Scene extends Panel implements Runnable, ActionListener {
         // g.setFont(new Font("Monospaced", Font.PLAIN, 12));
         // g.drawString("Testing custom drawing ...", 10, 20);
 
-        avion.dessiner(g, this);
+        avion.afficher(g, this);
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -118,12 +117,21 @@ public class Scene extends Panel implements Runnable, ActionListener {
             // cycle();
             repaint();
 
+            timeDiff = System.currentTimeMillis() - beforeTime;
+            sleep = DELAY - timeDiff;
+
+            if (sleep < 0) {
+                sleep = 2;
+            }
+
             try {
-                Thread.sleep(DELAI_RAFRESH);
+                Thread.sleep(sleep);
             } catch (InterruptedException e) {
                 String msg = String.format("Thread interrupted: %s", e.getMessage());
                 JOptionPane.showMessageDialog(this, msg, "Error", JOptionPane.ERROR_MESSAGE);
             }
+
+            beforeTime = System.currentTimeMillis();
         }
     }
 
@@ -157,7 +165,8 @@ public class Scene extends Panel implements Runnable, ActionListener {
         @Override
         public void keyPressed(KeyEvent e) {
             int key = e.getKeyCode();
-            int pas = 8;
+            // avion.deplacer(0, 0);
+            int pas = 4;
             if (key == KeyEvent.VK_LEFT) {
                 avion.deplacer(-pas, 0);
             }

@@ -7,6 +7,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Panel;
+import java.awt.event.KeyEvent;
 import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
 
@@ -72,14 +74,13 @@ public abstract class ObjetAnime /* extends Panel */ {
     /**
      * Deplacer l'objet vers une nouvelle position
      * 
-     * @param dx
-     * @param dy
+     * @param pos
      */
-    public void deplacer(int dx, int dy) {
-        int x = pos.getX();
-        int y = pos.getY();
-        pos.setX(x + dx);
-        pos.setY(y + dy);
+    public void deplacer(Point pos) {
+        int x = this.pos.getX();
+        int y = this.pos.getY();
+        this.pos.setX(x + pos.getX());
+        this.pos.setY(y + pos.getY());
     }
 
     /**
@@ -90,26 +91,19 @@ public abstract class ObjetAnime /* extends Panel */ {
      */
     public void dessiner(Graphics g, ImageObserver observer) {
 
-        // Afficher l'objet
-        if (image != null)
+        // Afficher l'avion
+        if (image != null) {
             g.drawImage(image, pos.getX() - 25, pos.getY(), observer);
-        else {
-            g.setColor(Color.WHITE);
-            g.fillOval(pos.getX(), pos.getY(), 10, 10);
         }
 
-        // Afficher le nom de l'objet
+        // g.setColor(Color.WHITE);
+        // g.fillOval(pos.getX(), pos.getY(), 10, 10);
+
+        // Afficher son nom
         g.setColor(Color.WHITE);
         g.setFont(new Font("Monospaced", Font.PLAIN, 10));
         g.drawString(nom, pos.getX() - 40, pos.getY() + 70);
     }
-
-    /**
-     * Cette méthode est appelée si l'ojet est touchée par un autre objet
-     * 
-     * @param objet
-     */
-    public abstract void touche(ObjetAnime objet);
 
     @Override
     public boolean equals(Object o) {
