@@ -1,17 +1,7 @@
 package fr.ntdt.game.shooter;
 
 import java.awt.EventQueue;
-import java.awt.Frame;
-import java.awt.Button;
-import java.awt.Dimension;
-
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 import javax.swing.JFrame;
-
-import java.awt.event.ActionEvent;
 
 /**
  * Classe principale de démarrage du jeu
@@ -41,5 +31,4 @@ public class App extends JFrame {
         });
         new App();
     }
-
 }
