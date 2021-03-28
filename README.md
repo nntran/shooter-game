@@ -39,3 +39,4 @@ Traduire en langage Java le diagramme des classes ci-dessous.
 * Apprendre à surcharger des méthodes
 * Apprendre à utiliser des abstraites
 
+![](tp3/diagramme-classes.png)
