@@ -30,13 +30,19 @@ Traduire en langage Java le diagramme des classes ci-dessous.
 
 
 
-### TP3 - Jeu de tir d'avion
+### TP3 - Jeu de tir (Part. 1)
+
+Dans ce TP3, nous allons écrire un jeu de tir de type **Shoot'em Up**.
+
+Ne vous occupez pas du socle graphique. Concentrez-vous sur la conception des avions et des armes du jeu.
 
 **Objectifs:**
 
 * Apprendre à concevoir des classes (avion, arme, ...)
 * Apprendre à faire de l'héritage
-* Apprendre à surcharger des méthodes
-* Apprendre à utiliser des abstraites
+* Apprendre à implémenter des classes et des méthodes abstraites (`abstract`)
+* Apprendre à surcharger des méthodes de la **super classe**
+
+**Diagramme des classes: **
 
 ![](tp3/diagramme-classes.png)
