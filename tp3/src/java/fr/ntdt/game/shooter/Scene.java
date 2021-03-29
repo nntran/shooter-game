@@ -1,6 +1,5 @@
 package fr.ntdt.game.shooter;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,50 +7,57 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.Panel;
 import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 import fr.ntdt.game.shooter.objet.Point;
 import fr.ntdt.game.shooter.objet.Objet;
 import fr.ntdt.game.shooter.objet.avion.Avion;
 import fr.ntdt.game.shooter.objet.avion.RafaleF3R;
-import fr.ntdt.game.shooter.objet.arme.BlasterAlphaX3;
 
 public class Scene extends Panel implements Runnable {
 
     private final int LARGEUR = 640;
-    private final int HAUTEUR = 480;
+    private final int HAUTEUR = 780;
 
     private final int DELAI_RAFRESH = 5;
 
+    // Processus qui assure l'animation et le rafraichissement des
+    // objets dans la scène
     private Thread animator;
 
+    // Avion du joueur
     private Avion avion;
 
     public Scene() {
 
         setPreferredSize(new Dimension(LARGEUR, HAUTEUR));
-
-        avion = new RafaleF3R();
-        avion.setPos(new Point(LARGEUR / 2, HAUTEUR - 80));
-
         addKeyListener(new KeyboardAdapter());
-    }
 
-    @Override
-    public void addNotify() {
+        // Création d'un avion dans la scène
+        avion = new RafaleF3R();
+        int la = avion.getLargeur();
+        int ha = avion.getHauteur();
+        int x = (LARGEUR - (la / 2)) / 2;
+        int y = (HAUTEUR - ha - 80);
+        avion.setPos(new Point(x, y));
 
-        super.addNotify();
-
+        // Création d'un processus qui assure l'animation et le rafraichissement des
+        // objets dans la scène
         animator = new Thread(this);
         animator.start();
     }
+
+    // @Override
+    // public void addNotify() {
+
+    // super.addNotify();
+
+    // animator = new Thread(this);
+    // animator.start();
+    // }
 
     // Override paint to perform your own painting
     @Override

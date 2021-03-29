@@ -69,11 +69,31 @@ public abstract class Objet /* extends Panel */ {
         return this;
     }
 
+    public Image getImage() {
+        return this.image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public Objet image(Image image) {
+        setImage(image);
+        return this;
+    }
+
+    public int getLargeur() {
+        return this.largeur;
+    }
+
+    public int getHauteur() {
+        return this.hauteur;
+    }
+
     /**
      * Deplacer l'objet vers une nouvelle position
      * 
-     * @param dx
-     * @param dy
+     * @param dx * @param dy
      */
     public void deplacer(int dx, int dy) {
         int x = pos.getX();
