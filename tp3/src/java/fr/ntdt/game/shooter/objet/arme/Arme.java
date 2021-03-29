@@ -1,6 +1,6 @@
 package fr.ntdt.game.shooter.objet.arme;
 
-import fr.ntdt.game.shooter.objet.ObjetAnime;
+import fr.ntdt.game.shooter.objet.Objet;
 
 /**
  * Modélisation des armes qui seront utilisées par les avions
@@ -10,7 +10,14 @@ public abstract class Arme extends Objet {
     // Facteur de dégat de l'arme (0.01 à 0.5) à l'impact
     private float degat = (float) 0.01;
 
-    // Type de portée
+    /**
+     * Dégat maximum
+     */
+    public static final float DEGAT_MAX = 0.5f;
+
+    /**
+     * Type de portée
+     */
     public static enum Portee {
         COURT, MOYEN, LONG;
     }
@@ -19,9 +26,10 @@ public abstract class Arme extends Objet {
      * Constructeur de création d'arme
      * 
      * @param nom
+     * @param image
      */
-    protected Arme(String nom) {
-        super(nom, null);
+    protected Arme(String nom, String image) {
+        super(nom, image);
     }
 
     public float getDegat() {
@@ -29,7 +37,13 @@ public abstract class Arme extends Objet {
     }
 
     public void setDegat(float degat) {
-        this.degat = degat;
+
+        if (degat < 0f)
+            this.degat = 0f;
+        else if (degat > DEGAT_MAX)
+            this.degat = DEGAT_MAX;
+        else
+            this.degat = degat;
     }
 
     public Arme degat(float degat) {
@@ -40,7 +54,7 @@ public abstract class Arme extends Objet {
     /**
      * Portée de l'arme à spécifier
      * 
-     * @return
+     * @return rtourne la portée de l'arme
      */
     public abstract Portee getPortee();
 

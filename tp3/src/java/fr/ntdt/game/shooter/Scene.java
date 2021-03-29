@@ -1,8 +1,5 @@
 package fr.ntdt.game.shooter;
 
-import fr.ntdt.game.shooter.objet.Point;
-// import fr.ntdt.game.shooter.objet.avion.Avion;
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,22 +17,29 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
+import fr.ntdt.game.shooter.objet.Point;
+import fr.ntdt.game.shooter.objet.Objet;
+import fr.ntdt.game.shooter.objet.avion.Avion;
+import fr.ntdt.game.shooter.objet.avion.RafaleF3R;
+import fr.ntdt.game.shooter.objet.arme.BlasterAlphaX3;
+
 public class Scene extends Panel implements Runnable {
 
     private final int LARGEUR = 640;
     private final int HAUTEUR = 480;
 
-    private final int DELAI_RAFRESH = 30;
+    private final int DELAI_RAFRESH = 5;
 
     private Thread animator;
 
-    // private Objet avion = new RafaleF3R();
+    private Avion avion;
 
     public Scene() {
 
         setPreferredSize(new Dimension(LARGEUR, HAUTEUR));
 
-        // avion.setPos(new Point(LARGEUR / 2, HAUTEUR - 60));
+        avion = new RafaleF3R();
+        avion.setPos(new Point(LARGEUR / 2, HAUTEUR - 80));
 
         addKeyListener(new KeyboardAdapter());
     }
@@ -75,7 +79,7 @@ public class Scene extends Panel implements Runnable {
         double h = size.getHeight();
 
         // Afficher l'avion
-        // avion.dessiner(g, this);
+        avion.dessiner(g, this);
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -110,19 +114,19 @@ public class Scene extends Panel implements Runnable {
             int key = e.getKeyCode();
             int pas = 8;
             if (key == KeyEvent.VK_LEFT) {
-                // avion.deplacer(-pas, 0);
+                avion.deplacer(-pas, 0);
             }
 
             if (key == KeyEvent.VK_RIGHT) {
-                // avion.deplacer(pas, 0);
+                avion.deplacer(pas, 0);
             }
 
             if (key == KeyEvent.VK_UP) {
-                // avion.deplacer(0, -pas);
+                avion.deplacer(0, -pas);
             }
 
             if (key == KeyEvent.VK_DOWN) {
-                // avion.deplacer(0, pas);
+                avion.deplacer(0, pas);
             }
         }
     }
