@@ -1,48 +1,95 @@
-# Formation Java
+# Un **Shoot'em Up** en Java
 
-## Comment récupérer ce projet ?
+Ce projet sert comme base pour la formation sur le langage Java. Les élèves vont réaliser le jeu au fure et à mesure sous forme de de plusieurs TP (travaux pratiques).
 
-Commencez par créer un dossier nommé `formation`, puis positionnez-vous dans ce réperoire et lancez la commande ci-dessous pour récupérer le projet Git.
+
+## Présentations
+
+
+## Principes de gestion des versions du jeu
+
+La branche principale `master` représente la dernière version du jeu compilable et exécutable. Les versions finales seront prélevées à partir de cette branche sous forme de `tags versionnés` en utilisant le système de versioning `x.y.z`.
+
+Les travaux pratiques (TP) seront tirés à partir de la branche `develop` qui est elle-même issue de la branche `master`. Une fois qu'une fonctionnalité est implémentée (par le formateur), elle sera mergée dans cette branche pour être partagé avec tous les participants.
+
+A la fin du TP, une `release` du jeu sera créée sous forme d'une branche nommée `release/x.y.z` à partir de la branche `develop`. Une fois que cette release a été testé et qu'il n'y aucun bug détecté, elle est sera mergée sur la branche `master`.
+
+## Démarrage rapide
+
+### 1. Récupérer les sources du projet depuis Github
 
 ```
-cd formation
-git clone https://github.com/nntran/training-java java
+git clone https://github.com/nntran/java-shooter-game
+```
+    
+### 2. Compiler le projet
+
+Utilise le script `build.sh` (pour Linux) ou `build.bat` (pour Windows) pour compiler les fichiers Java.
+
+Il faudra penser à enrichir ce script pour ajouter les nouvelles classes Java que vous allez mettre en oeuvre.
+
+Ouvrez un terminal et positionnez-vous dans le dossier du projet et lancez la commande ci-dessous:
+
+**Sous Linux**
+
+```sh
+./build.sh
+```
+
+ou
+
+```sh
+sh build.sh
+```
+
+**Sous Windows**
+
+```sh
+./build.bat
+```
+
+### 3. Lancer le jeu
+
+Pour lancer l'application, il faut utiliser le script `start.sh` (pour Linux) ou `start.bat` (pour Windows) fourni. 
+
+**Sous Linux**
+
+```sh
+./start.sh
+```
+
+ou
+
+```sh
+sh start.sh
+```
+
+**Sous Windows**
+
+```sh
+./start.bat
 ```
 
 ## Travaux pratiques
 
-### TP1 - Hello World!
-
-Découverte des outils (java, javac, ...) fournis dans le Kit de déceloppement Java (JDK)
-
-### TP2 - Modélisation des classes
-
-Traduire en langage Java le diagramme des classes ci-dessous.
-
-![](tp2/diagramme-classes.png)
-
-**Objectifs:**
-
-* Apprendre à concevoir des classes
-* Apprendre à créer des constructeurs, données membres, typer les données, ...
-* Apprendre à générer des getter/setter des données membres de d'une classe
-* Apprendre à surcharger (override) la méthode `toString()` de la super classe `Object`
+### TP #1
 
 
+### TP #2
 
-### TP3 - Jeu de tir (Part. 1)
+### TP #3
 
-Dans ce TP3, nous allons écrire un jeu de tir de type **Shoot'em Up**.
+Dans ce TP, vous allez concevoir des `avions` et des `armes` du jeu. Vous allez apprendre à :
+
+* Concevoir des classes (Avion, Arme, ...)
+* Faire de l'héritage
+* Implémenter des classes et des méthodes abstraites (`abstract`)
+* Surcharger des méthodes de la **super classe**
+
 
 Ne vous occupez pas du socle graphique. Concentrez-vous sur la conception des avions et des armes du jeu.
 
-**Objectifs:**
+**Diagramme des classes:**
 
-* Apprendre à concevoir des classes (avion, arme, ...)
-* Apprendre à faire de l'héritage
-* Apprendre à implémenter des classes et des méthodes abstraites (`abstract`)
-* Apprendre à surcharger des méthodes de la **super classe**
+![](diagramme-classes.png)
 
-**Diagramme des classes: **
-
-![](tp3/diagramme-classes.png)
