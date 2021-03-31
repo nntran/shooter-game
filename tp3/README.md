@@ -44,7 +44,7 @@ sh build.sh
 **Sou Windows**
 
 ```sh
-./build.sh
+./build.bat
 ```
 
 ### Pour lancer le jeu
@@ -66,6 +66,6 @@ sh start.sh
 **Sou Windows**
 
 ```sh
-./start.sh
+./start.bat
 ```
 
