@@ -2,13 +2,23 @@ package fr.ntdt.game.shooter.objet;
 
 import java.util.Objects;
 import java.util.UUID;
+import java.io.File;
+import java.io.IOException;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageFilter;
+import java.awt.image.ImageProducer;
+import java.awt.image.RGBImageFilter;
 import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 
 /**
  * Objet animé
@@ -26,10 +36,6 @@ public abstract class Objet /* extends Panel */ {
     // Image de l'objet
     private Image image;
 
-    // largeur et hauteur de l'image
-    private int largeur;
-    private int hauteur;
-
     /**
      * 
      * @param nom      Nom de l'objet
@@ -40,12 +46,50 @@ public abstract class Objet /* extends Panel */ {
         this.nom = nom;
         pos = new Point(0, 0);
 
-        // charger l'image
+        // Charger l'image
         ImageIcon imgIcon = new ImageIcon(imageUri);
-        image = imgIcon.getImage();
+        setImage(imgIcon.getImage());
 
-        largeur = image.getWidth(null);
-        hauteur = image.getHeight(null);
+        System.out.println("Créer objet : " + nom + " (L=" + getLargeur() + " H=" + getHauteur() + ")");
+    }
+
+    /**
+     * 
+     */
+    private static BufferedImage imageToBufferedImage(final Image image) {
+        final BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
+                BufferedImage.TYPE_INT_ARGB);
+        final Graphics2D g2 = bufferedImage.createGraphics();
+        g2.drawImage(image, 0, 0, null);
+        g2.dispose();
+        return bufferedImage;
+    }
+
+    /**
+     * Make provided image transparent wherever color matches the provided color.
+     *
+     * @param im    BufferedImage whose color will be made transparent.
+     * @param color Color in provided image which will be made transparent.
+     * @return Image with transparency applied.
+     */
+    public static Image makeColorTransparent(final BufferedImage im, final Color color) {
+        final ImageFilter filter = new RGBImageFilter() {
+            // the color we are looking for (white)... Alpha bits are set to opaque
+            public int markerRGB = color.getRGB() | 0xFFFFFFFF;
+
+            public final int filterRGB(final int x, final int y, final int rgb) {
+                if ((rgb | 0xFF000000) == markerRGB) {
+                    // Mark the alpha bits as zero - transparent
+                    return 0x00FFFFFF & rgb;
+                } else {
+                    // nothing to do
+                    return rgb;
+                }
+            }
+        };
+
+        final ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
+        return Toolkit.getDefaultToolkit().createImage(ip);
     }
 
     public UUID getId() {
@@ -75,6 +119,15 @@ public abstract class Objet /* extends Panel */ {
 
     public void setImage(Image image) {
         this.image = image;
+        if (image != null && image.getWidth(null) > 0) {
+            // Rendre trasparent la couleur noir
+            // BufferedImage bufferImg = imageToBufferedImage(image);
+            // int color = bufferImg.getRGB(0, 0);
+            // Image imageWithTransparency = makeColorTransparent(bufferImg, new Color(0, 0
+            //
+            // 0));
+            // image = imageWithTransparency;
+        }
     }
 
     public Objet image(Image image) {
@@ -83,17 +136,18 @@ public abstract class Objet /* extends Panel */ {
     }
 
     public int getLargeur() {
-        return this.largeur;
+        return image == null ? 0 : image.getWidth(null);
     }
 
     public int getHauteur() {
-        return this.hauteur;
+        return image == null ? 0 : image.getHeight(null);
     }
 
     /**
      * Deplacer l'objet vers une nouvelle position
      * 
-     * @param dx * @param dy
+     * @param dx
+     * @param dy
      */
     public void deplacer(int dx, int dy) {
         int x = pos.getX();

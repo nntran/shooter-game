@@ -33,6 +33,8 @@ public class Scene extends Panel implements Runnable {
 
     public Scene() {
 
+        // set background color for this JPanel
+        setBackground(Color.BLACK);
         setPreferredSize(new Dimension(LARGEUR, HAUTEUR));
         addKeyListener(new KeyboardAdapter());
 
@@ -64,8 +66,6 @@ public class Scene extends Panel implements Runnable {
     public void paint(Graphics g) {
         // paint parent's background
         super.paint(g);
-        // set background color for this JPanel
-        setBackground(Color.BLACK);
 
         // It is a good programming practice to delegate the actual painting to a
         // specific method.
@@ -92,8 +92,6 @@ public class Scene extends Panel implements Runnable {
 
     @Override
     public void run() {
-        long beforeTime, timeDiff, sleep;
-        beforeTime = System.currentTimeMillis();
 
         while (true) {
 

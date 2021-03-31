@@ -25,11 +25,11 @@ public class App extends JFrame {
     }
 
     public static void main(String[] args) {
+
         EventQueue.invokeLater(() -> {
             App game = new App();
             game.setVisible(true);
         });
-        new App();
     }
 
 }
