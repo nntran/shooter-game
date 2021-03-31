@@ -19,7 +19,7 @@ A la fin du TP, une `release` du jeu sera créée sous forme d'une branche nomm�
 ### 1. Récupérer les sources du projet depuis Github
 
 ```
-git clone https://github.com/nntran/java-shooter-game
+git clone https://github.com/nntran/shooter-game
 ```
     
 ### 2. Compiler le projet
