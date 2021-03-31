@@ -8,7 +8,7 @@ import fr.ntdt.game.shooter.objet.arme.BlasterAlphaX3;
 public class RafaleF3R extends Avion {
 
     public RafaleF3R() {
-        super("Rafale F3-R", "avion.png");
+        super("Rafale F3-R", "rafale-f3r.png");
 
         principale = new BlasterAlphaX3();
         secondaire = null;
