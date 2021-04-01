@@ -1,6 +1,6 @@
 # Un **Shoot'em Up** en Java
 
-Ce projet sert comme base pour la formation sur le langage Java. Les élèves vont réaliser le jeu au fure et à mesure sous forme de de plusieurs TP (travaux pratiques).
+Ce projet sert comme base pour la formation sur le langage Java. Les élèves vont réaliser le jeu au fure et à mesure sous forme de de plusieurs travaux pratiques (TP).
 
 
 ## Présentations
@@ -10,7 +10,7 @@ Ce projet sert comme base pour la formation sur le langage Java. Les élèves vo
 
 La branche principale `master` représente la dernière version du jeu compilable et exécutable. Les versions finales seront prélevées à partir de cette branche sous forme de `tags versionnés` en utilisant le système de versioning `x.y.z`.
 
-Les travaux pratiques (TP) seront tirés à partir de la branche `develop` qui est elle-même issue de la branche `master`. Une fois qu'une fonctionnalité est implémentée (par le formateur), elle sera mergée dans cette branche pour être partagé avec tous les participants.
+Les TP seront tirés à partir de la branche `develop` qui est elle-même issue de la branche `master`. Une fois qu'une fonctionnalité est implémentée (par le formateur), elle sera mergée dans cette branche pour être partagée avec tous les participants.
 
 A la fin du TP, une `release` du jeu sera créée sous forme d'une branche nommée `release/x.y.z` à partir de la branche `develop`. Une fois que cette release a été testé et qu'il n'y aucun bug détecté, elle est sera mergée sur la branche `master`.
 
@@ -71,6 +71,30 @@ sh start.sh
 ```
 
 ## Travaux pratiques
+
+Pour chaque TP, vous devez créer une branche nommée `<votre prenom>/tpx` à partir de la branche `develop`.
+
+### Comment ça marche ?
+
+1. Positionnez-vous dans le dossier de formation, puis commencez par récupérer le projet :
+
+```
+git clone https://github.com/nntran/java-shooter-game
+```
+
+2. Basculez sur la branche `develop` puis créez la branche `<votre prenom>/tpx` en indiquant votre prénom et le numéro du TP:
+
+```
+git checkout formation
+git branch <votre prenom>/tpx
+```
+
+### Comment récupérer les sources d'un de vos TPs ?
+
+```
+git checkout <votre prenom>/tpx
+```
+
 
 ### TP #1
 
