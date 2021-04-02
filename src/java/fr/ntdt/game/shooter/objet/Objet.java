@@ -2,8 +2,6 @@ package fr.ntdt.game.shooter.objet;
 
 import java.util.Objects;
 import java.util.UUID;
-import java.io.File;
-import java.io.IOException;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -18,7 +16,6 @@ import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
 import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
-import javax.imageio.ImageIO;
 
 /**
  * Objet animé
@@ -34,7 +31,7 @@ public abstract class Objet /* extends Panel */ {
     protected Point pos;
 
     // Image de l'objet
-    private Image image;
+    protected Image image;
 
     /**
      * 
@@ -150,10 +147,8 @@ public abstract class Objet /* extends Panel */ {
      * @param dy
      */
     public void deplacer(int dx, int dy) {
-        int x = pos.getX();
-        int y = pos.getY();
-        pos.setX(x + dx);
-        pos.setY(y + dy);
+        pos.setX(dx);
+        pos.setY(dy);
     }
 
     /**
@@ -169,13 +164,12 @@ public abstract class Objet /* extends Panel */ {
             g.drawImage(image, pos.getX() - 25, pos.getY(), observer);
         else {
             g.setColor(Color.WHITE);
-            g.fillOval(pos.getX(), pos.getY(), 10, 10);
+            g.fillOval(pos.getX(), pos.getY(), 5, 5);
+            // Afficher le nom de l'objet
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Monospaced", Font.PLAIN, 10));
+            g.drawString(nom, pos.getX(), pos.getY() + 10);
         }
-
-        // Afficher le nom de l'objet
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Monospaced", Font.PLAIN, 10));
-        g.drawString(nom, pos.getX() - 40, pos.getY() + 70);
     }
 
     /**
@@ -193,12 +187,12 @@ public abstract class Objet /* extends Panel */ {
             return false;
         }
         Objet objet = (Objet) o;
-        return Objects.equals(id, objet.id) && Objects.equals(nom, objet.nom);
+        return Objects.equals(id, objet.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nom);
+        return Objects.hash(id);
     }
 
     @Override

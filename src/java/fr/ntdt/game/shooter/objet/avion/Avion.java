@@ -1,20 +1,22 @@
 package fr.ntdt.game.shooter.objet.avion;
 
 import fr.ntdt.game.shooter.objet.Objet;
+import fr.ntdt.game.shooter.objet.Point;
 import fr.ntdt.game.shooter.objet.arme.Arme;
+import fr.ntdt.game.shooter.objet.arme.Balle;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Modélisation d'un avion (abstraction)
  */
 public class Avion extends Objet {
-
-    // Vitesse de vol (1 à 10)
-    private int vitesse = 1;
 
     /**
      * Santé maximale
@@ -28,7 +30,7 @@ public class Avion extends Objet {
     private float resistance = 0.01f;
 
     // Armes principale et secondaire
-    protected Arme principale, secondaire;
+    protected Arme armePrincipale, armeSecondaire;
 
     // Nombre de bombs max
     public static int NB_BOMBS_MAX = 4;
@@ -41,24 +43,6 @@ public class Avion extends Objet {
      */
     public Avion(String nom, String image) {
         super(nom, image != null ? "src/ressources/" + image : null);
-    }
-
-    public int getVitesse() {
-        return this.vitesse;
-    }
-
-    public void setVitesse(int vitesse) {
-        if (vitesse < 1)
-            this.vitesse = 1;
-        else if (vitesse > 10)
-            this.vitesse = 10;
-        else
-            this.vitesse = vitesse;
-    }
-
-    public Avion vitesse(int vitesse) {
-        setVitesse(vitesse);
-        return this;
     }
 
     public float getSante() {
@@ -98,51 +82,74 @@ public class Avion extends Objet {
     }
 
     public Arme getArmePrincipale() {
-        return this.principale;
+        return this.armePrincipale;
     }
 
     public void setArmePrincipale(Arme principale) {
-        this.principale = principale;
+        this.armePrincipale = principale;
+        if (this.armePrincipale != null) {
+            this.armePrincipale.setPos(new Point(pos.getX(), pos.getY()));
+        }
     }
 
-    public Avion principale(Arme principale) {
+    public Avion armePrincipale(Arme principale) {
         setArmePrincipale(principale);
         return this;
     }
 
     public Arme getArmeSecondaire() {
-        return this.secondaire;
+        return this.armeSecondaire;
     }
 
     public void setArmeSecondaire(Arme secondaire) {
-        this.secondaire = secondaire;
+        this.armeSecondaire = secondaire;
+        if (this.armeSecondaire != null) {
+            this.armeSecondaire.setPos(new Point(pos.getX(), pos.getY()));
+        }
     }
 
-    public Avion secondaire(Arme secondaire) {
+    public Avion armeSecondaire(Arme secondaire) {
         setArmeSecondaire(secondaire);
         return this;
     }
 
     @Override
-    public void deplacer(int dx, int dy) {
+    public void deplacer(int x, int y) {
 
-        // Prendre en compte la vitesse de l'avion
-        if (dx > 0)
-            dx = dx * vitesse;
-        if (dy > 0)
-            dy = dy * vitesse;
+        // Déplace l'avion
+        super.deplacer(x, y);
 
-        super.deplacer(dx, dy);
+        // Il faut mettre à jour la position de mes armes
+        if (armePrincipale != null) {
+            armePrincipale.deplacer(x, y);
+        }
+
+        if (armeSecondaire != null) {
+            armeSecondaire.deplacer(x, y);
+        }
     }
 
+    @Override
     public void dessiner(Graphics g, ImageObserver observer) {
 
+        // dessiner l'avion
         super.dessiner(g, observer);
 
-        // Afficher le nom de l'objet
-        g.setColor(Color.CYAN);
-        g.setFont(new Font("Monospaced", Font.PLAIN, 10));
-        g.drawString(principale.getNom(), pos.getX() - 40, pos.getY() + 90);
+        // afficher l'arme principale
+        if (armePrincipale != null) {
+            // g.setColor(Color.CYAN);
+            // g.setFont(new Font("Monospaced", Font.PLAIN, 10));
+            // g.drawString(principale.getNom(), pos.getX() - 40, pos.getY() + 90);
+            armePrincipale.dessiner(g, observer);
+        }
+
+        // afficher l'arme secondaire
+        if (armeSecondaire != null) {
+            // g.setColor(Color.CYAN);
+            // g.setFont(new Font("Monospaced", Font.PLAIN, 10));
+            // g.drawString(principale.getNom(), pos.getX() - 40, pos.getY() + 90);
+            armeSecondaire.dessiner(g, observer);
+        }
     }
 
     @Override
@@ -163,5 +170,27 @@ public class Avion extends Objet {
 
         if (sante < 0)
             sante = 0;
+    }
+
+    /**
+     * Tire sur les objets ciblés
+     * 
+     * @param cibles Objets cibles
+     * @return retourne les balles tirées
+     */
+    public List<Balle> tirer(List<Objet> cibles) {
+        List<Balle> ballesTirees = new ArrayList<Balle>();
+        if (armePrincipale != null) {
+            Balle balles[] = armePrincipale.tirer(cibles);
+            if (balles != null)
+                ballesTirees.addAll(Arrays.asList(balles));
+        }
+        if (armeSecondaire != null) {
+            Balle balles[] = armeSecondaire.tirer(cibles);
+            if (balles != null) {
+                ballesTirees.addAll(Arrays.asList(balles));
+            }
+        }
+        return ballesTirees;
     }
 }
