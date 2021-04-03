@@ -11,7 +11,7 @@ public class BombPlasma extends Bomb {
     }
 
     @Override
-    public Balle[] tirer(List<Objet> cibles) {
+    public Balle[] tirer(Objet... cibles) {
         // TODO Auto-generated method stub
         return null;
     }

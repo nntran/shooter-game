@@ -25,7 +25,7 @@ public class LanceMissiles extends Arme {
     }
 
     @Override
-    public Balle[] tirer(List<Objet> cibles) {
+    public Balle[] tirer(Objet... cibles) {
         synchronized (this) {
             // for (int i = NB_MISSILES; i > 0; i--) {
             Missile m = new Missile();
@@ -69,7 +69,7 @@ public class LanceMissiles extends Arme {
 
         @Override
         public int getVitesse() {
-            return 85;
+            return 8;
         }
 
         @Override

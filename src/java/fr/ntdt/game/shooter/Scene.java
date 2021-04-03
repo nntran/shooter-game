@@ -8,10 +8,6 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.Panel;
 import java.awt.RenderingHints;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,10 +41,6 @@ public class Scene extends Panel implements Runnable {
         // set background color for this JPanel
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(LARGEUR, HAUTEUR));
-        addKeyListener(new KeyboardAdapter());
-        MouseController controller = new MouseController();
-        addMouseListener(controller);
-        addMouseMotionListener(controller);
 
         // Création d'un avion dans la scène
         avion = new RafaleF3R();
@@ -74,6 +66,22 @@ public class Scene extends Panel implements Runnable {
     // animator = new Thread(this);
     // animator.start();
     // }
+
+    /**
+     * 
+     * @return
+     */
+    public Avion getAvion() {
+        return avion;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public List<Objet> getEnnemies() {
+        return ennemies;
+    }
 
     // Override paint to perform your own painting
     @Override
@@ -147,75 +155,10 @@ public class Scene extends Panel implements Runnable {
 
         List<Objet> ennemies = new ArrayList<>();
         Avion ennemie1 = new Avion("Ennemie 1", "avion-2.png");
+        ennemie1.rotation(180);
         ennemie1.setPos(new Point(300, 100));
-
         ennemies.add(ennemie1);
 
         return ennemies;
-    }
-
-    private class KeyboardAdapter extends KeyAdapter {
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            int key = e.getKeyCode();
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            super.keyPressed(e);
-            int key = e.getKeyCode();
-            // int pas = 8;
-            // if (key == KeyEvent.VK_LEFT) {
-            // avion.deplacer(-pas, 0);
-            // }
-
-            // if (key == KeyEvent.VK_RIGHT) {
-            // avion.deplacer(pas, 0);
-            // }
-
-            // if (key == KeyEvent.VK_UP) {
-            // avion.deplacer(0, -pas);
-            // }
-
-            // if (key == KeyEvent.VK_DOWN) {
-            // avion.deplacer(0, pas);
-            // }
-
-            if (key == KeyEvent.VK_A) {
-                avion.tirer(ennemies);
-            }
-        }
-    }
-
-    private class MouseController extends MouseAdapter {
-
-        private boolean pressed = false;
-
-        public void mousePressed(MouseEvent e) {
-            pressed = !pressed;
-        }
-
-        // public void mouseReleased(MouseEvent e) {
-        // // pressed = false;
-        // int x = e.getX();
-        // int y = e.getY();
-        // System.out.println("Mouse release : (X: " + x + " Y: " + y + ")");
-        // }
-
-        public void mouseMoved(MouseEvent e) {
-            super.mouseMoved(e);
-            int x = e.getX();
-            int y = e.getY();
-
-            int h = avion.getHauteur();
-
-            // System.out.println("X: " + x + " Y: " + y);
-            if (pressed) {
-                if (y > 100) {
-                    avion.deplacer(x, y - h);
-                }
-            }
-        }
     }
 }

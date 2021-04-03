@@ -105,7 +105,7 @@ public abstract class Arme extends Objet {
      * @param cibles Objets cibles
      * @return retourne les balles tirés
      */
-    public abstract Balle[] tirer(List<Objet> cibles);
+    public abstract Balle[] tirer(Objet... cibles);
 
     @Override
     public void dessiner(Graphics g, ImageObserver observer) {

@@ -50,45 +50,6 @@ public abstract class Objet /* extends Panel */ {
         System.out.println("Créer objet : " + nom + " (L=" + getLargeur() + " H=" + getHauteur() + ")");
     }
 
-    /**
-     * 
-     */
-    private static BufferedImage imageToBufferedImage(final Image image) {
-        final BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
-                BufferedImage.TYPE_INT_ARGB);
-        final Graphics2D g2 = bufferedImage.createGraphics();
-        g2.drawImage(image, 0, 0, null);
-        g2.dispose();
-        return bufferedImage;
-    }
-
-    /**
-     * Make provided image transparent wherever color matches the provided color.
-     *
-     * @param im    BufferedImage whose color will be made transparent.
-     * @param color Color in provided image which will be made transparent.
-     * @return Image with transparency applied.
-     */
-    public static Image makeColorTransparent(final BufferedImage im, final Color color) {
-        final ImageFilter filter = new RGBImageFilter() {
-            // the color we are looking for (white)... Alpha bits are set to opaque
-            public int markerRGB = color.getRGB() | 0xFFFFFFFF;
-
-            public final int filterRGB(final int x, final int y, final int rgb) {
-                if ((rgb | 0xFF000000) == markerRGB) {
-                    // Mark the alpha bits as zero - transparent
-                    return 0x00FFFFFF & rgb;
-                } else {
-                    // nothing to do
-                    return rgb;
-                }
-            }
-        };
-
-        final ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
-        return Toolkit.getDefaultToolkit().createImage(ip);
-    }
-
     public UUID getId() {
         return this.id;
     }
@@ -173,6 +134,15 @@ public abstract class Objet /* extends Panel */ {
     }
 
     /**
+     * Effectuer une rotation de l'ojet en fonction de l'angle spécifié
+     * 
+     * @param angle
+     */
+    public void rotation(int angle) {
+        setImage(rotateImage(imageToBufferedImage(image), angle));
+    }
+
+    /**
      * Cette méthode est appelée si l'ojet est touchée par un autre objet
      * 
      * @param objet
@@ -198,5 +168,77 @@ public abstract class Objet /* extends Panel */ {
     @Override
     public String toString() {
         return getNom() + " {" + " id='" + getId() + "'" + ", pos='" + getPos() + "'" + "}";
+    }
+
+    /**
+     * 
+     * @param src
+     * @param angle
+     * @return
+     */
+    public static BufferedImage rotateImage(BufferedImage image, int angle) {
+        double theta = (Math.PI * 2) / 360 * angle;
+        int width = image.getWidth();
+        int height = image.getHeight();
+        BufferedImage dest;
+        if (angle == 90 || angle == 270) {
+            dest = new BufferedImage(image.getHeight(), image.getWidth(), image.getType());
+        } else {
+            dest = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+        }
+
+        Graphics2D graphics2D = dest.createGraphics();
+
+        if (angle == 90) {
+            graphics2D.translate((height - width) / 2, (height - width) / 2);
+            graphics2D.rotate(theta, height / 2, width / 2);
+        } else if (angle == 270) {
+            graphics2D.translate((width - height) / 2, (width - height) / 2);
+            graphics2D.rotate(theta, height / 2, width / 2);
+        } else {
+            graphics2D.translate(0, 0);
+            graphics2D.rotate(theta, width / 2, height / 2);
+        }
+        graphics2D.drawRenderedImage(image, null);
+        return dest;
+    }
+
+    /**
+    * 
+    */
+    private static BufferedImage imageToBufferedImage(final Image image) {
+        final BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
+                BufferedImage.TYPE_INT_ARGB);
+        final Graphics2D g2 = bufferedImage.createGraphics();
+        g2.drawImage(image, 0, 0, null);
+        g2.dispose();
+        return bufferedImage;
+    }
+
+    /**
+     * Make provided image transparent wherever color matches the provided color.
+     *
+     * @param im    BufferedImage whose color will be made transparent.
+     * @param color Color in provided image which will be made transparent.
+     * @return Image with transparency applied.
+     */
+    public static Image makeColorTransparent(final BufferedImage im, final Color color) {
+        final ImageFilter filter = new RGBImageFilter() {
+            // the color we are looking for (white)... Alpha bits are set to opaque
+            public int markerRGB = color.getRGB() | 0xFFFFFFFF;
+
+            public final int filterRGB(final int x, final int y, final int rgb) {
+                if ((rgb | 0xFF000000) == markerRGB) {
+                    // Mark the alpha bits as zero - transparent
+                    return 0x00FFFFFF & rgb;
+                } else {
+                    // nothing to do
+                    return rgb;
+                }
+            }
+        };
+
+        final ImageProducer ip = new FilteredImageSource(im.getSource(), filter);
+        return Toolkit.getDefaultToolkit().createImage(ip);
     }
 }

@@ -18,7 +18,7 @@ public class Speciale extends Arme {
     }
 
     @Override
-    public Balle[] tirer(List<Objet> cibles) {
+    public Balle[] tirer(Objet... cibles) {
         // TODO Auto-generated method stub
         return null;
     }

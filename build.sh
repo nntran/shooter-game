@@ -28,6 +28,7 @@ javac -d $OUT_CLASSES_DIR -cp $OUT_CLASSES_DIR $SRC_DIR/fr/ntdt/game/shooter/obj
 
 # Application
 javac -d $OUT_CLASSES_DIR -cp $OUT_CLASSES_DIR $SRC_DIR/fr/ntdt/game/shooter/Scene.java
+javac -d $OUT_CLASSES_DIR -cp $OUT_CLASSES_DIR $SRC_DIR/fr/ntdt/game/shooter/Controlleur.java
 javac -d $OUT_CLASSES_DIR -cp $OUT_CLASSES_DIR $SRC_DIR/fr/ntdt/game/shooter/App.java
 
 #cp -R $RESSOURCES_DIR 

@@ -18,7 +18,7 @@ public abstract class Balle extends Objet implements Runnable {
     }
 
     /**
-     * Retourne la vitese de déplacement de la balle (0 à 100)
+     * Retourne la vitese de déplacement de la balle (0 à 10)
      * 
      * @return
      */
@@ -26,15 +26,17 @@ public abstract class Balle extends Objet implements Runnable {
 
     @Override
     public void run() {
-        int dy = -5;
-        int delai = 101 - getVitesse();
+        int direction = -1;
+        int vitesse = getVitesse();
+        int dy = 10 * direction;
         while (pos.getY() > 0) {
 
             deplacer(pos.getX(), pos.getY() + dy);
 
             try {
-                Thread.sleep(delai);
+                Thread.sleep(20 - vitesse);
             } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

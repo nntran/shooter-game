@@ -178,19 +178,19 @@ public class Avion extends Objet {
      * @param cibles Objets cibles
      * @return retourne les balles tirées
      */
-    public List<Balle> tirer(List<Objet> cibles) {
-        List<Balle> ballesTirees = new ArrayList<Balle>();
+    public List<Objet> tirer(Objet... cibles) {
+        List<Objet> listObjTouches = new ArrayList<>();
         if (armePrincipale != null) {
-            Balle balles[] = armePrincipale.tirer(cibles);
-            if (balles != null)
-                ballesTirees.addAll(Arrays.asList(balles));
+            Objet objTouches[] = armePrincipale.tirer(cibles);
+            if (objTouches != null)
+                listObjTouches.addAll(Arrays.asList(objTouches));
         }
         if (armeSecondaire != null) {
-            Balle balles[] = armeSecondaire.tirer(cibles);
-            if (balles != null) {
-                ballesTirees.addAll(Arrays.asList(balles));
+            Objet objTouches[] = armeSecondaire.tirer(cibles);
+            if (objTouches != null) {
+                listObjTouches.addAll(Arrays.asList(objTouches));
             }
         }
-        return ballesTirees;
+        return listObjTouches;
     }
 }
