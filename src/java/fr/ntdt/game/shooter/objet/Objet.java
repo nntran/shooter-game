@@ -122,7 +122,7 @@ public abstract class Objet /* extends Panel */ {
 
         // Afficher l'objet
         if (image != null)
-            g.drawImage(image, pos.getX() - 25, pos.getY(), observer);
+            g.drawImage(image, pos.getX(), pos.getY(), observer);
         else {
             g.setColor(Color.WHITE);
             g.fillOval(pos.getX(), pos.getY(), 5, 5);

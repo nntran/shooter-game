@@ -10,8 +10,8 @@ public abstract class Balle extends Objet implements Runnable {
 
     private Thread animator;
 
-    protected Balle(String nom, String imageUri) {
-        super(nom, imageUri);
+    protected Balle(String nom, String image) {
+        super(nom, image != null ? "src/ressources/" + image : null);
 
         animator = new Thread(this);
         animator.start();
@@ -44,8 +44,10 @@ public abstract class Balle extends Objet implements Runnable {
     @Override
     public void dessiner(Graphics g, ImageObserver observer) {
 
-        g.setColor(Color.YELLOW);
-        g.drawOval(pos.getX(), pos.getY(), 2, 2);
+        super.dessiner(g, observer);
+
+        // g.setColor(Color.YELLOW);
+        // g.drawOval(pos.getX(), pos.getY(), 2, 2);
     }
 
     protected void finalize() {
@@ -56,6 +58,6 @@ public abstract class Balle extends Objet implements Runnable {
 
         }
         animator = null;
-        System.out.println("Balle detruite: " + getNom() + " (" + getId() + ")");
+        System.out.println("Balle : " + getNom() + " (" + getId() + ") detruite");
     }
 }

@@ -28,9 +28,22 @@ public class LanceMissiles extends Arme {
     public Balle[] tirer(Objet... cibles) {
         synchronized (this) {
             // for (int i = NB_MISSILES; i > 0; i--) {
-            Missile m = new Missile();
-            m.setPos(new Point(pos.getX(), pos.getY()));
-            missiles.add(m);
+
+            // missile à gauche
+            Missile mg = new Missile();
+            mg.setPos(new Point(pos.getX(), pos.getY()));
+            missiles.add(mg);
+
+            // missile à droit
+            Missile md = new Missile();
+            md.setPos(new Point(pos.getX() + 50, pos.getY()));
+            missiles.add(md);
+
+            // missile centre
+            Missile mc = new Missile();
+            mc.setPos(new Point(pos.getX() + 25, pos.getY() - 30));
+            missiles.add(mc);
+
             // }
         }
         return null;
@@ -49,7 +62,7 @@ public class LanceMissiles extends Arme {
         super.dessiner(g, observer);
 
         // Afficher les missiles
-        System.out.println("Nombre de missiles: " + missiles.size());
+        // System.out.println("Nombre de missiles: " + missiles.size());
         for (Missile missile : missiles) {
             missile.dessiner(g, observer);
         }
@@ -58,7 +71,7 @@ public class LanceMissiles extends Arme {
     private class Missile extends Balle {
 
         protected Missile() {
-            super("", null);
+            super("", "missile.png");
         }
 
         @Override
