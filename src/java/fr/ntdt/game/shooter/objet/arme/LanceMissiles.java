@@ -26,7 +26,7 @@ public class LanceMissiles extends Arme {
 
     @Override
     public Balle[] tirer(Objet... cibles) {
-        synchronized (this) {
+        synchronized (missiles) {
             // for (int i = NB_MISSILES; i > 0; i--) {
 
             // missile à gauche
@@ -63,8 +63,10 @@ public class LanceMissiles extends Arme {
 
         // Afficher les missiles
         // System.out.println("Nombre de missiles: " + missiles.size());
-        for (Missile missile : missiles) {
-            missile.dessiner(g, observer);
+        synchronized (missiles) {
+            for (Missile missile : missiles) {
+                missile.dessiner(g, observer);
+            }
         }
     }
 
