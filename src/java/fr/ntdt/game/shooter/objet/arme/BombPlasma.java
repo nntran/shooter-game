@@ -1,5 +1,7 @@
 package fr.ntdt.game.shooter.objet.arme;
 
+import java.util.List;
+
 import fr.ntdt.game.shooter.objet.Objet;
 
 public class BombPlasma extends Bomb {
@@ -9,9 +11,9 @@ public class BombPlasma extends Bomb {
     }
 
     @Override
-    public void tirer() {
+    public Balle[] tirer(Objet... cibles) {
         // TODO Auto-generated method stub
-
+        return null;
     }
 
     @Override

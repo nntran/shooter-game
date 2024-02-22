@@ -16,6 +16,9 @@ public class App extends JFrame {
         // setLayout(null);
 
         Scene scene = new Scene();
+        new Controlleur(scene);
+
+        // Ajout la scene dans la fenetre principale
         add(scene);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

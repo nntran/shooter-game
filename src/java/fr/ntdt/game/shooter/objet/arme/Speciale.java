@@ -4,10 +4,17 @@ import java.util.List;
 
 import fr.ntdt.game.shooter.objet.Objet;
 
-public class BlasterAlphaX3 extends Laser {
+public class Speciale extends Arme {
 
-    public BlasterAlphaX3() {
-        super("Blaster Alpha X3", null);
+    protected Speciale(String nom, String image) {
+        super(nom, image);
+        // TODO Auto-generated constructor stub
+    }
+
+    @Override
+    public Portee getPortee() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     @Override
@@ -21,4 +28,5 @@ public class BlasterAlphaX3 extends Laser {
         // TODO Auto-generated method stub
 
     }
+
 }

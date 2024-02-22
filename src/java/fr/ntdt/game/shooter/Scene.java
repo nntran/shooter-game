@@ -1,19 +1,21 @@
 package fr.ntdt.game.shooter;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.Panel;
 import java.awt.RenderingHints;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import fr.ntdt.game.shooter.objet.Point;
 import fr.ntdt.game.shooter.objet.Objet;
+import fr.ntdt.game.shooter.objet.Point;
+import fr.ntdt.game.shooter.objet.arme.Arme;
 import fr.ntdt.game.shooter.objet.avion.Avion;
 import fr.ntdt.game.shooter.objet.avion.RafaleF3R;
 
@@ -31,12 +33,14 @@ public class Scene extends Panel implements Runnable {
     // Avion du joueur
     private Avion avion;
 
+    // Avions ennemies
+    private List<Objet> ennemies;
+
     public Scene() {
 
         // set background color for this JPanel
         setBackground(Color.BLACK);
         setPreferredSize(new Dimension(LARGEUR, HAUTEUR));
-        addKeyListener(new KeyboardAdapter());
 
         // Création d'un avion dans la scène
         avion = new RafaleF3R();
@@ -45,6 +49,8 @@ public class Scene extends Panel implements Runnable {
         int x = (LARGEUR - (la / 2)) / 2;
         int y = (HAUTEUR - ha - 80);
         avion.setPos(new Point(x, y));
+
+        ennemies = creerEnnemies();
 
         // Création d'un processus qui assure l'animation et le rafraichissement des
         // objets dans la scène
@@ -60,6 +66,22 @@ public class Scene extends Panel implements Runnable {
     // animator = new Thread(this);
     // animator.start();
     // }
+
+    /**
+     * 
+     * @return
+     */
+    public Avion getAvion() {
+        return avion;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public List<Objet> getEnnemies() {
+        return ennemies;
+    }
 
     // Override paint to perform your own painting
     @Override
@@ -84,8 +106,26 @@ public class Scene extends Panel implements Runnable {
         double w = size.getWidth();
         double h = size.getHeight();
 
-        // Afficher l'avion
+        // affichier les armes en haut de la scène
+        Arme principale = avion.getArmePrincipale();
+        Arme secondaire = avion.getArmeSecondaire();
+
+        g.setColor(Color.CYAN);
+        g.setFont(new Font("Monospaced", Font.PLAIN, 10));
+        if (principale != null) {
+            g.drawString(principale.getNom(), 100, 10);
+        }
+        if (secondaire != null) {
+            g.drawString(secondaire.getNom(), 100, 30);
+        }
+
+        // dessiner l'avion dans cette scène
         avion.dessiner(g, this);
+
+        // afficher les ennemies
+        for (Objet ennemie : ennemies) {
+            ennemie.dessiner(g, this);
+        }
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -106,32 +146,19 @@ public class Scene extends Panel implements Runnable {
         }
     }
 
-    private class KeyboardAdapter extends KeyAdapter {
+    /**
+     * 
+     * @return Liste des ennemies visibles sur la scène
+     */
+    private List<Objet> creerEnnemies() {
+        // TODO : à implémenter
 
-        @Override
-        public void keyReleased(KeyEvent e) {
-            int key = e.getKeyCode();
-        }
+        List<Objet> ennemies = new ArrayList<>();
+        Avion ennemie1 = new Avion("Ennemie 1", "avion-2.png");
+        ennemie1.rotation(180);
+        ennemie1.setPos(new Point(300, 100));
+        ennemies.add(ennemie1);
 
-        @Override
-        public void keyPressed(KeyEvent e) {
-            int key = e.getKeyCode();
-            int pas = 8;
-            if (key == KeyEvent.VK_LEFT) {
-                avion.deplacer(-pas, 0);
-            }
-
-            if (key == KeyEvent.VK_RIGHT) {
-                avion.deplacer(pas, 0);
-            }
-
-            if (key == KeyEvent.VK_UP) {
-                avion.deplacer(0, -pas);
-            }
-
-            if (key == KeyEvent.VK_DOWN) {
-                avion.deplacer(0, pas);
-            }
-        }
+        return ennemies;
     }
 }
